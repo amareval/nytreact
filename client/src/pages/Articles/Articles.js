@@ -37,8 +37,12 @@ class Articles extends Component {
 
     axios.get("https://api.nytimes.com/svc/search/v2/articlesearch.json?api-key=b9f91d369ff59547cd47b931d8cbc56b:0:74623931&q=" + title + "?begin_date=" + startdate + "?end_date=" + enddate)
 
-
-    .then(res => console.log(res)
+    .then(res => {
+      console.log(res.data.response.docs); 
+      this.setState({
+        searchresults: res.data.response.docs
+      })
+    }
     )
     .catch(err => console.log(err));
   }
@@ -110,7 +114,7 @@ class Articles extends Component {
                   <ListItem key={article._id}>
                     <Link to={"/articles/" + article._id}>
                       <strong>
-                        {article.title} by {article.author}
+                        {article.headline.main} by {article.author}
                       </strong>
                     </Link>
                     <AddBtn onClick={() => this.deleteArticle(article._id)} />
