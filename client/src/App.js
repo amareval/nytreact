@@ -4,6 +4,7 @@ import Articles from "./pages/Articles";
 import Detail from "./pages/Detail";
 import NoMatch from "./pages/NoMatch";
 import Nav from "./components/Nav";
+import Saved from "./pages/Saved"
 
 const App = () => (
   <Router>
@@ -11,6 +12,7 @@ const App = () => (
       <Nav />
       <Switch>
         <Route exact path="/" component={Articles} />
+        <Route exact path="/saved" component={Saved} />
         <Route exact path="/articles" component={Articles} />
         <Route exact path="/articles/:id" component={Detail} />
         <Route component={NoMatch} />

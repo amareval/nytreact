@@ -52,18 +52,17 @@ class Articles extends Component {
     });
   };
 
-  handleFormSubmit = event => {
-    event.preventDefault();
-    if (this.state.title) {
-      API.search({
-        title: this.state.title,
-        date: this.state.date,
-        url: this.state.url
-      })
-        .then(res => this.loadArticles())
-        .catch(err => console.log(err));
-    }
-  };
+  // handleFormSubmit = event => {
+  //   event.preventDefault();
+  //   if (this.state.title) {
+  //     API.search({searchresults : 
+  //       res.data, 
+  //       title : "", date: "", url: ""
+  //     })
+  //       .then(res => this.loadArticles())
+  //       .catch(err => console.log(err));
+  //   }
+  // };
 
   render() {
     return (
