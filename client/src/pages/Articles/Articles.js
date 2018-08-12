@@ -52,6 +52,20 @@ class Articles extends Component {
       .then(res => this.loadArticles())
       .catch(err => console.log(err));
   };
+  
+  saveArticle = id => {
+
+    this.state.searchresults.map(i => {
+      if(id === i._id){
+        API.saveArticle({
+          title: i.headline.main
+        })
+        .then(res => this.loadArticles())
+        .catch(err => console.log(err));
+      }
+    })
+    // console.log(id);
+  }
 
   handleInputChange = event => {
     const { name, value } = event.target;
@@ -117,7 +131,7 @@ class Articles extends Component {
                         {article.headline.main} by {article.author}
                       </strong>
                     </Link>
-                    <AddBtn onClick={() => this.deleteArticle(article._id)} />
+                    <AddBtn onClick={() => this.saveArticle(article._id)} />
                   </ListItem>
                 ))}
               </List>
