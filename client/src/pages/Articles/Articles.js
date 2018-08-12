@@ -13,8 +13,8 @@ class Articles extends Component {
     searchresults: [],
     articles: [],
     title: "",
-    date: "",
-    url: ""
+    startdate: "",
+    enddate: ""
   };
 
   componentDidMount() {
@@ -29,14 +29,20 @@ class Articles extends Component {
       .catch(err => console.log(err));
   };
 
-  searchArticles = () => {
-    API.search()
-    .then(res => 
-      this.setState ({searchresults : 
-      res.data, title : "", date: "", url: ""
-    })
-    )
-    .catch(err => console.log(err));
+  searchArticles = (title,startdate,enddate) => {
+    console.log(title)
+    console.log(startdate)
+    console.log(enddate)
+    // API.search()
+    // .then(res => 
+    //   this.setState ({searchresults : 
+    //   res.data, 
+    //   title : "", 
+    //   date: "", 
+    //   url: ""
+    // })
+    // )
+    // .catch(err => console.log(err));
   }
 
   deleteArticle = id => {
@@ -52,23 +58,16 @@ class Articles extends Component {
     });
   };
 
-  // handleFormSubmit = event => {
-  //   event.preventDefault();
-  //   if (this.state.title) {
-  //     API.search({searchresults : 
-  //       res.data, 
-  //       title : "", date: "", url: ""
-  //     })
-  //       .then(res => this.loadArticles())
-  //       .catch(err => console.log(err));
-  //   }
-  // };
+  handleFormSubmit = event => {
+    event.preventDefault();
+    this.searchArticles(this.state.title, this.state.startdate, this.state.enddate)
+  };
 
   render() {
     return (
       <Container fluid>
         <Row>
-          <Col size="md-6">
+          <Col size="md-12">
             <Jumbotron>
               <h1>What Article Should I Read?</h1>
             </Jumbotron>
@@ -80,46 +79,25 @@ class Articles extends Component {
                 placeholder="Title (required)"
               />
               <Input
-                value={this.state.date}
+                value={this.state.startdate}
                 onChange={this.handleInputChange}
-                name="date"
-                placeholder="date (required)"
+                name="startdate"
+                placeholder="start date(required)"
               />
-              <TextArea
-                value={this.state.url}
+              <Input
+                value={this.state.enddate}
                 onChange={this.handleInputChange}
-                name="url"
-                placeholder="url (Optional)"
+                name="enddate"
+                placeholder="end date (required)"
               />
               <FormBtn
-                disabled={!(this.state.author && this.state.title)}
                 onClick={this.handleFormSubmit}
               >
                 Submit Article
               </FormBtn>
             </form>
           </Col>
-          <Col size="md-6 sm-12">
-            <Jumbotron>
-              <h1>Saved Articles</h1>
-            </Jumbotron>
-            {this.state.articles.length ? (
-              <List>
-                {this.state.articles.map(article => (
-                  <ListItem key={article._id}>
-                    <Link to={"/articles/" + article._id}>
-                      <strong>
-                        {article.title} by {article.author}
-                      </strong>
-                    </Link>
-                    <DeleteBtn onClick={() => this.deleteArticle(article._id)} />
-                  </ListItem>
-                ))}
-              </List>
-            ) : (
-              <h3>No Results to Display</h3>
-            )}
-          </Col>
+          
         </Row>
         <Row>
         <Col size = "md-1">
