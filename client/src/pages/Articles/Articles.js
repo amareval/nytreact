@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import axios from "axios"
 import DeleteBtn from "../../components/DeleteBtn";
 import AddBtn from "../../components/AddBtn";
 import Jumbotron from "../../components/Jumbotron";
@@ -7,6 +8,9 @@ import { Link } from "react-router-dom";
 import { Col, Row, Container } from "../../components/Grid";
 import { List, ListItem } from "../../components/List";
 import { Input, TextArea, FormBtn } from "../../components/Form";
+
+const BASEURL = "https://api.nytimes.com/svc/search/v2/articlesearch.json?api-key=";
+const APIKEY = "b9f91d369ff59547cd47b931d8cbc56b:0:74623931";
 
 class Articles extends Component {
   state = {
@@ -30,19 +34,13 @@ class Articles extends Component {
   };
 
   searchArticles = (title,startdate,enddate) => {
-    console.log(title)
-    console.log(startdate)
-    console.log(enddate)
-    // API.search()
-    // .then(res => 
-    //   this.setState ({searchresults : 
-    //   res.data, 
-    //   title : "", 
-    //   date: "", 
-    //   url: ""
-    // })
-    // )
-    // .catch(err => console.log(err));
+
+    axios.get("https://api.nytimes.com/svc/search/v2/articlesearch.json?api-key=b9f91d369ff59547cd47b931d8cbc56b:0:74623931&q=" + title + "?begin_date=" + startdate + "?end_date=" + enddate)
+
+
+    .then(res => console.log(res)
+    )
+    .catch(err => console.log(err));
   }
 
   deleteArticle = id => {
@@ -82,13 +80,13 @@ class Articles extends Component {
                 value={this.state.startdate}
                 onChange={this.handleInputChange}
                 name="startdate"
-                placeholder="start date(required)"
+                placeholder="start date YYYYMMDD (required)"
               />
               <Input
                 value={this.state.enddate}
                 onChange={this.handleInputChange}
                 name="enddate"
-                placeholder="end date (required)"
+                placeholder="end date YYYYMMDD (required)"
               />
               <FormBtn
                 onClick={this.handleFormSubmit}
